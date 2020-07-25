@@ -10,9 +10,10 @@ print("Hello! I am Misinfo.Me.Bot and I am here to help you to analyse Twitter p
 time.sleep(3)
 print("Tell me what Twitter profile you would like to analyse. Can be yours, or someone that you suspect that spreads a lot of misinformation, like Donald Trump, for example ;-) . Please, type the Twitter name after @, like @realDonaldTrump, for example.")
 time.sleep(1)
-id = input("Insert ID here")
+screenname = input("Insert Screenname here:")
 
 
-##This is the id of the tweet, for now we will use the tweet, instead of the profile to test the requests.
 
-print("The id is:" + id) 
+print("https://socsem.kmi.open.ac.uk/misinfo/api/credibility/users/?screen_name=" + screenname)
+
+### I removed the id part, and i added ^ which just sends the link to it for further editing.
