@@ -14,9 +14,13 @@ print("Tell me what Twitter profile you would like to analyse. Can be yours, or 
 time.sleep(1)
 screenname = input("Insert Screenname here:")
 
+
+
 response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/credibility/users/?screen_name=" + screenname)
+print("Credibility value(s) (the closer to 1 it is, the more reliable it is:")
+response.raise_for_status()
+jsonResponse = response.json()
+print(jsonResponse["credibility"]["value"])
 
+    
 
-
-
-### I removed the id part, and i added ^ which just sends the link to it for further editing.
