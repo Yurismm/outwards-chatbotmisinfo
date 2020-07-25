@@ -15,12 +15,17 @@ time.sleep(1)
 screenname = input("Insert Screenname here:")
 
 
+### reading json file + screenname
 
 response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/credibility/users/?screen_name=" + screenname)
-print("Credibility value(s) (the closer to 1 it is, the more reliable it is:")
 response.raise_for_status()
 jsonResponse = response.json()
-print(jsonResponse["credibility"]["value"])
+print("Credibility value(s) (the closer to 1 it is, the more reliable it is:")
+value = jsonResponse["credibility"]["value"]
+print(value)
+### Prints the value, we really need to make this number into something more user-friendly.
 
-    
+
+
+
 
