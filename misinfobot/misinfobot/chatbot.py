@@ -1,5 +1,7 @@
 import time
 import requests
+import json
+
 
 response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/swagger.json")
 print(response.status_code)
@@ -12,8 +14,9 @@ print("Tell me what Twitter profile you would like to analyse. Can be yours, or 
 time.sleep(1)
 screenname = input("Insert Screenname here:")
 
+response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/credibility/users/?screen_name=" + screenname)
 
 
-print("https://socsem.kmi.open.ac.uk/misinfo/api/credibility/users/?screen_name=" + screenname)
+
 
 ### I removed the id part, and i added ^ which just sends the link to it for further editing.
