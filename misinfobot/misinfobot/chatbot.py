@@ -14,6 +14,7 @@ print("Tell me what Twitter profile you would like to analyse. Can be yours, or 
 time.sleep(1)
 screenname = input("Insert Screenname here:")
 
+
 wltkm = input("Thank you. I am now gathering information tweeted by @" + screenname + ". In the meantime, would you like to learn more about how Misinfo.Me works? (yes/no)")
 
 if wltkm == "yes":
@@ -25,21 +26,35 @@ elif wltkm =="no":
 
 ### reading json file + screenname
 
+response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/analysis/twitter_accounts?wait=true&screen_name=jamescharles")
+response.raise_for_status()
+jsonResponse = response.json()
+
+verifcnt = jsonResponse["verified_urls_cnt"]
+fkcnt = jsonResponse["fake_urls_cnt"]
+unkcnt = jsonResponse["unknown_urls_cnt"]
+lastupdated = jsonResponse["updated"]
+
 response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/credibility/users/?screen_name=" + screenname)
 response.raise_for_status()
 jsonResponse = response.json()
-print("Credibility value(s) (the closer to 1 it is, the more reliable it is, however, if it's in minus numbers that means the profile could be spreading misinfomation.")
+
+
+
+print("Credibility value(s): (the closer to 1 it is, the more reliable it is, however, if it's in minus numbers that means the profile could be spreading misinfomation.")
 value = jsonResponse["credibility"]["value"]
 print(value)
 tweetcount = jsonResponse["itemReviewed"]["tweets_cnt"]
 print("@" + screenname + " has " + str(tweetcount) + " tweets in total.")
 sharedurlcount = jsonResponse["itemReviewed"]["shared_urls_cnt"]
 print("@" + screenname + " has " + str(sharedurlcount) + " urls have been shared in their tweets in total.")
+print("@" + screenname + " has " + str(fkcnt) + " urls that have been labled as fake links.")
+print("@" + screenname + " has " + str(verifcnt) + " urls that have been labled as verified links (This could be 0, because the profile isn't analysed fully yet.")
+print("@" + screenname + " has " + str(unkcnt) + " urls that from unknown places, or that are unknown to us.")
+print("This code was last updated on" + str(lastupdated))
+time.sleep(2)
+
+input("You can also send a link to a tweet to have it analysed for misinfomation. Would you like to do this? (y/n)")
 
 
 ### Prints the value, we really need to make this number into something more user-friendly.
-
-
-
-
-
