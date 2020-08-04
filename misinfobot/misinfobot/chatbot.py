@@ -13,19 +13,25 @@ print("Hello! I am Misinfo.Me.Bot and I am here to help you to analyse Twitter p
 time.sleep(3)
 print("Tell me what Twitter profile you would like to analyse. Can be yours, or someone that you suspect that spreads a lot of misinformation, like Donald Trump, for example ;-) . Please, type the Twitter name after @, like @realDonaldTrump, for example.")
 time.sleep(1)
+
+#twitter screename
+
 screenname = input("Insert Screenname here:")
 
 
 wltkm = input("Thank you. I am now gathering information tweeted by @" + screenname + ". In the meantime, would you like to learn more about how Misinfo.Me works? (yes/no)")
 
+#wltkm stands for would like to know more, if the user says yes the bot will give more infomation
 if wltkm == "yes":
     print("Misinfo.Me extracts the links that part of any tweet created or retweet by the profile under analysis. We then look for these URLs that have been analysed by fact-checkers and check their sources. Based on these assessments, we calculate a score to the Twitter profile that will be presented to you.")
 elif wltkm =="no":
     print("Alright. That could be important information later, so if you want to find out more about the score, just ask ‘can I find out more about the score’ once your analysis is complete.")
 
 ### reading json file + screenname
+# file is standalone api from other workers
+# file is also in json
 
-response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/analysis/twitter_accounts?wait=true&screen_name=jamescharles")
+response = requests.get("https://socsem.kmi.open.ac.uk/misinfo/api/analysis/twitter_accounts?wait=true&screen_name=" + screenname)
 response.raise_for_status()
 jsonResponse = response.json()
 
@@ -40,6 +46,7 @@ jsonResponse = response.json()
 
 
 
+
 print("Credibility value(s): (the closer to 1 it is, the more reliable it is, however, if it's in minus numbers that means the profile could be spreading misinfomation.")
 value = jsonResponse["credibility"]["value"]
 print(value)
@@ -51,7 +58,9 @@ print("@" + screenname + " has " + str(fkcnt) + " urls that have been labled as 
 print("@" + screenname + " has " + str(verifcnt) + " urls that have been labled as verified links (This could be 0, because the profile isn't analysed fully yet.")
 print("@" + screenname + " has " + str(unkcnt) + " urls that from unknown places, or that are unknown to us.")
 print("This result was last updated on: " + str(lastupdated))
+
 time.sleep(2)
+
 if value < 0:
     print("This means that this profile could possibilty be associated with misinfomation")
 elif value > 0:
